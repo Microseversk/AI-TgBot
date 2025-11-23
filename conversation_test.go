@@ -7,6 +7,7 @@ import (
 )
 
 func TestConversationFlow(t *testing.T) {
+	// Full happy-path conversation: start -> choose predefined field -> reply -> done summary.
 	store := newFileStore(filepath.Join(t.TempDir(), "state.json"))
 	manager, err := newConversationManager(store)
 	if err != nil {
@@ -44,6 +45,7 @@ func TestConversationFlow(t *testing.T) {
 }
 
 func TestCustomCategoryPersistence(t *testing.T) {
+	// Custom field is stored and survives reload, then show_data returns it.
 	tmpDir := t.TempDir()
 	storePath := filepath.Join(tmpDir, "state.json")
 	manager, err := newConversationManager(newFileStore(storePath))
@@ -73,6 +75,7 @@ func TestCustomCategoryPersistence(t *testing.T) {
 }
 
 func TestShowAllDataCommand(t *testing.T) {
+	// /show_all_data returns facts for multiple users.
 	tmpDir := t.TempDir()
 	storePath := filepath.Join(tmpDir, "state.json")
 	manager, err := newConversationManager(newFileStore(storePath))
